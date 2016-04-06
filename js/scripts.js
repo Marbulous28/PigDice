@@ -13,28 +13,32 @@ $(document).ready(function() {
   $('form#diceRoll').submit(function(event){
     event.preventDefault();
 
-    $('.bust').hide();
-    var dice = parseInt(rng(1,6).toPrecision(1));
-    total = total + dice;
-    $("#display-number").text(dice);
-    if (dice == 1){
-      total = 0;
+
+    var dice = rollDice();
+    total = addDice(dice, total);
+    if (checkBust(dice)==true){
       turnCount++;
-      $('.bust').show();
-      $('#hideme1').toggle();
-      $('#hideme2').toggle();
+      total = 0;
     }
+    $("#display-number").text(dice);
+
     $('#floatDisplay').text(total);
+
     if (turnCount % 2 == 0 && player == null){
-      player = new Scores(total);
-    } else if (turnCount % 2 != 0 && npc == null){
-      npc = new Scores(total);
+      player = new Player(total);
     }
-    if (turnCount % 2 == 0 && player != null){
-      player.playerFloat = total;
-    } else if (turnCount % 2 != 0 && npc != null){
-      npc.playerFloat = total;
+    else if (turnCount % 2 != 0 && npc == null){
+      npc = new Player(total);
     }
+
+    console.log(player);
+    console.log(npc);
+    // if (turnCount % 2 == 0 && player != null){
+    //   player.playerFloat = total;
+    // }
+    //  else if (turnCount % 2 != 0 && npc != null){
+    //   npc.playerFloat = total;
+    // }
   });
 
   $('form#stay').submit(function(event){
@@ -54,20 +58,21 @@ $(document).ready(function() {
           document.location.reload(true);
         }
       }
-    } else {
-      npc.playerTotal += npc.addScores();
-      $("#display-score-npc").text(npc.playerTotal);
-      if (npc.playerTotal >= 50){
-        $('#winspan').text('NPC');
-        $('#winner').show();
-        $('#hideme1').hide();
-        $('#hideme2').hide();
-        var answer = newGame();
-        if (answer == true){
-          document.location.reload(true);
-        }
-      }
     }
+    // else {
+    //   npc.playerTotal += npc.addScores();
+    //   $("#display-score-npc").text(npc.playerTotal);
+    //   if (npc.playerTotal >= 50){
+    //     $('#winspan').text('NPC');
+    //     $('#winner').show();
+    //     $('#hideme1').hide();
+    //     $('#hideme2').hide();
+    //     var answer = newGame();
+    //     if (answer == true){
+    //       document.location.reload(true);
+    //     }
+    //   }
+    // }
     turnCount++
     total = 0;
     $('#hideme1').toggle();
@@ -80,17 +85,52 @@ $(document).ready(function() {
 
 
 // Buissness logic
-function Scores(floatingScore){
+function Player(floatingScore){
   this.playerFloat = floatingScore;
   this.playerTotal = 0;
 }
-Scores.prototype.addScores = function() {
+Player.prototype.addScores = function() {
   var newTotal = this.playerFloat;
   return newTotal;
 }
 function rng(min,max) {
   return Math.random() * (max-min) + min;
 }
+
+function rollDice(){
+  var dice = parseInt(rng(1,6).toPrecision(1));
+  $("#display-number").text(dice);
+    return dice;
+}
+function addDice(dice, total){
+  total = total + dice;
+    return total;
+}
+
+function checkBust(dice){
+  if (dice == 1){
+    total = 0;
+    $('.bust').show();
+    $('#hideme1').toggle();
+    $('#hideme2').toggle();
+    return true;
+  }
+}
+
+
+// function aiLogic(){
+//   var dice = parseInt(rng(1,6).toPrecision(1));
+//   total = total + dice;
+//   $("#display-number").text(dice);
+//   if (dice == 1){
+//     total = 0;
+//     turnCount++;
+//     $('.bust').show();
+//     $('#hideme1').toggle();
+//     $('#hideme2').toggle();
+//   }
+//   $('#floatDisplay').text(total);
+// }
 function newGame(){
   var gameReset = confirm('Would you like to play again?');
   return gameReset;
