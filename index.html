@@ -15,19 +15,36 @@
       <div id="display-number">
 
       </div>
-      <div id="floatDisplay">
-
+      <div id="turnScore">
+        <p>
+          Turn total: <span id="floatDisplay"></span>
+        </p>
       </div>
       <button type="submit" class="btn btn-success" name="button">ROLL</button>
-
     </form>
     <form id="stay">
       <button type="submit" class="btn btn-info" name="button">Stay</button>
     </form>
-    <div>
+    <div id='scores'>
       <p>Player 1 score: <span id="display-score-player"></span></p>
       <p>NPC score: <span id="display-score-npc"></span></p>
+    </div>
+    <div class="bust">
+      <h2>You Busted!</h2>
+    </div>
+    <div id='winner'>
+      <h2><span id='winspan'></span>, you win! Bask in the glory of your hard earned victory!</h2>
 
+    </div>
+    <div class="row">
+
+
+    <div class="col-xs-6" id="player-turn">
+      <h2 id="hideme1">Player 1 Turn</h2>
+    </div>
+    <div class="col-xs-6" id="computer-turn">
+      <h2 id="hideme2">Computer Turn</h2>
+    </div>
     </div>
   </div>
 </body>

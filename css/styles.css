@@ -1,0 +1,54 @@
+.bust {
+  float: right;
+  display: none;
+  position: absolute;
+  top: 150px;
+  right: 150px;
+}
+
+#hideme2 {
+  display: none;
+}
+
+#winner {
+  display: none;
+  margin-top: 400px;
+  background: rgba(149,36,255,1);
+background: -moz-linear-gradient(left, rgba(149,36,255,1) 0%, rgba(149,36,255,1) 4%, rgba(255,149,36,1) 13%, rgba(51,105,255,1) 25%, rgba(5,255,188,1) 38%, rgba(0,27,235,1) 50%, rgba(90,216,44,1) 64%, rgba(255,5,105,1) 85%, rgba(21,82,249,1) 100%);
+background: -webkit-gradient(left top, right top, color-stop(0%, rgba(149,36,255,1)), color-stop(4%, rgba(149,36,255,1)), color-stop(13%, rgba(255,149,36,1)), color-stop(25%, rgba(51,105,255,1)), color-stop(38%, rgba(5,255,188,1)), color-stop(50%, rgba(0,27,235,1)), color-stop(64%, rgba(90,216,44,1)), color-stop(85%, rgba(255,5,105,1)), color-stop(100%, rgba(21,82,249,1)));
+background: -webkit-linear-gradient(left, rgba(149,36,255,1) 0%, rgba(149,36,255,1) 4%, rgba(255,149,36,1) 13%, rgba(51,105,255,1) 25%, rgba(5,255,188,1) 38%, rgba(0,27,235,1) 50%, rgba(90,216,44,1) 64%, rgba(255,5,105,1) 85%, rgba(21,82,249,1) 100%);
+background: -o-linear-gradient(left, rgba(149,36,255,1) 0%, rgba(149,36,255,1) 4%, rgba(255,149,36,1) 13%, rgba(51,105,255,1) 25%, rgba(5,255,188,1) 38%, rgba(0,27,235,1) 50%, rgba(90,216,44,1) 64%, rgba(255,5,105,1) 85%, rgba(21,82,249,1) 100%);
+background: -ms-linear-gradient(left, rgba(149,36,255,1) 0%, rgba(149,36,255,1) 4%, rgba(255,149,36,1) 13%, rgba(51,105,255,1) 25%, rgba(5,255,188,1) 38%, rgba(0,27,235,1) 50%, rgba(90,216,44,1) 64%, rgba(255,5,105,1) 85%, rgba(21,82,249,1) 100%);
+background: linear-gradient(to right, rgba(149,36,255,1) 0%, rgba(149,36,255,1) 4%, rgba(255,149,36,1) 13%, rgba(51,105,255,1) 25%, rgba(5,255,188,1) 38%, rgba(0,27,235,1) 50%, rgba(90,216,44,1) 64%, rgba(255,5,105,1) 85%, rgba(21,82,249,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9524ff', endColorstr='#1552f9', GradientType=1 );
+}
+
+#display-number {
+  margin-top: 50px;
+  text-align: center;
+  padding-top: 8px;
+  font-size: 20pt;
+  height: 60px;
+  width: 60px;
+  border-radius: 2px;
+  border-style: solid;
+}
+
+#turnScore{
+  margin-top: 50px;
+  margin-bottom: 30px;
+
+}
+
+.btn {
+  float: left;
+  margin: auto;
+  display: inline;
+  margin-right: 40px;
+  margin-bottom: 40px;
+}
+
+#scores {
+  margin-top: 100px;
+  clear: both;
+}
