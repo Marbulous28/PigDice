@@ -1,51 +1,49 @@
 // UI logic
 $(document).ready(function() {
 
-
-
   var total = 0;
-  var turnCount = 2;
+  var turnCount = 1;
   var player = null;
   var npc = null;
 
-
+console.log(turnCount);
   //roll the dice
   $('form#diceRoll').submit(function(event){
     event.preventDefault();
-
-
-    var dice = rollDice();
-    total = addDice(dice, total);
-    if (checkBust(dice)==true){
-      turnCount++;
-      total = 0;
-    }
-    $("#display-number").text(dice);
-
-    $('#floatDisplay').text(total);
-
-    if (turnCount % 2 == 0 && player == null){
+    console.log(turnCount);
+    if (turnCount == 1 && player == null){
       player = new Player(total);
-    }
-    else if (turnCount % 2 != 0 && npc == null){
+    } else if (turnCount == 2 && npc == null){
       npc = new Player(total);
     }
 
-    console.log(player);
-    console.log(npc);
-    // if (turnCount % 2 == 0 && player != null){
-    //   player.playerFloat = total;
-    // }
-    //  else if (turnCount % 2 != 0 && npc != null){
-    //   npc.playerFloat = total;
-    // }
+    var dice = rollDice();
+    total = addDice(dice, total);
+
+    if (checkBust(dice) == true){
+      turnCount = turnSwitch(turnCount);
+      total = 0;
+      player.playerFloat = 0;
+      npc.playerFloat = 0;
+    }
+    if (turnCount == 1) {
+      player.playerFloat += total;
+      $('#floatDisplay').text(player.playerFloat);
+      total = 0;
+    } else if (turnCount == 2){
+      npc.playerFloat += total;
+
+      $('#floatDisplay').text(npc.playerFloat);
+      total = 0;
+    }
+    $("#display-number").text(dice);
   });
 
   $('form#stay').submit(function(event){
     event.preventDefault();
-
-    if (turnCount % 2 == 0){
+    if (turnCount == 1){
       player.playerTotal += player.addScores();
+      player.playerFloat = 0;
       $("#display-score-player").text(player.playerTotal);
       if (player.playerTotal >= 50){
         $('#winspan').text('Player 1');
@@ -53,38 +51,46 @@ $(document).ready(function() {
         $('#hideme1').hide();
         $('#hideme2').hide();
         var answer = newGame();
-        console.log(answer);
         if (answer == true){
           document.location.reload(true);
         }
       }
     }
-    // else {
-    //   npc.playerTotal += npc.addScores();
-    //   $("#display-score-npc").text(npc.playerTotal);
-    //   if (npc.playerTotal >= 50){
-    //     $('#winspan').text('NPC');
-    //     $('#winner').show();
-    //     $('#hideme1').hide();
-    //     $('#hideme2').hide();
-    //     var answer = newGame();
-    //     if (answer == true){
-    //       document.location.reload(true);
-    //     }
-    //   }
-    // }
-    turnCount++
+    else {
+      npc.playerTotal += npc.addScores();
+      npc.playerFloat = 0;
+      $("#display-score-npc").text(npc.playerTotal);
+      if (npc.playerTotal >= 50){
+        $('#winspan').text('NPC');
+        $('#winner').show();
+        $('#hideme1').hide();
+        $('#hideme2').hide();
+        var answer = newGame();
+        if (answer == true){
+          document.location.reload(true);
+        }
+      }
+    }
     total = 0;
     $('#hideme1').toggle();
     $('#hideme2').toggle();
     $('#floatDisplay').text('');
     $("#display-number").text('Roll');
+    turnCount = turnSwitch(turnCount);
   });
 });
 
 
 
 // Buissness logic
+function turnSwitch(turn){
+  if (turn == 1){
+    turn = 2;
+  }else if(turn == 2){
+    turn = 1;
+  }
+  return turn;
+}
 function Player(floatingScore){
   this.playerFloat = floatingScore;
   this.playerTotal = 0;
@@ -109,7 +115,6 @@ function addDice(dice, total){
 
 function checkBust(dice){
   if (dice == 1){
-    total = 0;
     $('.bust').show();
     $('#hideme1').toggle();
     $('#hideme2').toggle();
@@ -117,20 +122,6 @@ function checkBust(dice){
   }
 }
 
-
-// function aiLogic(){
-//   var dice = parseInt(rng(1,6).toPrecision(1));
-//   total = total + dice;
-//   $("#display-number").text(dice);
-//   if (dice == 1){
-//     total = 0;
-//     turnCount++;
-//     $('.bust').show();
-//     $('#hideme1').toggle();
-//     $('#hideme2').toggle();
-//   }
-//   $('#floatDisplay').text(total);
-// }
 function newGame(){
   var gameReset = confirm('Would you like to play again?');
   return gameReset;
